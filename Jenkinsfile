@@ -22,17 +22,17 @@ pipeline {
         }
         stage('cleanup') {
           steps {
-            sh 'sudo docker system prune -a --volumes --force --filter "label=devops-web-project-server"'
+            sh 'docker system prune -a --volumes --force --filter "label=devops-web-project-server"'
           }
         }
         stage('build image') {
           steps {
-            sh 'sudo docker build -t lorerincon89/devops-web-project:v1 --label devops-web-project-server .'
+            sh 'docker build -t lorerincon89/devops-web-project:v1 --label devops-web-project-server .'
           }
         }
         stage('run container') {
           steps {
-            sh 'sudo docker run -d --name devops-web-project-server --label devops-web-project-server -p 8081:8080 lorerincon89/devops-web-project:v1'
+            sh 'docker run -d --name devops-web-project-server --label devops-web-project-server -p 8081:8080 lorerincon89/devops-web-project:v1'
           }
         }
     }
